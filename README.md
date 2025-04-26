@@ -28,7 +28,7 @@ Un jeu de Puissance 4 implémentant des intelligences artificielles de difficult
 
 1. Cloner le dépôt :
 ```bash
-git clone https://github.com/votre-utilisateur/puissance4-ia.git
+git clone https://github.com/DZ-Ramzy/ProjetIA
 cd puissance4-ia
 ```
 
