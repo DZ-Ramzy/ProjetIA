@@ -1,22 +1,32 @@
-from collections import defaultdict
-
 from IA_facile import IAFacile
-
+import random
 
 class IANormale(IAFacile):
-    """IA intermédiaire avec profondeur 6 et meilleure évaluation"""
-
     def __init__(self):
         super().__init__()
-        self.profondeur = 6
+        self.profondeur = 5
 
     def choisir_coup(self, jeu):
+        for col in range(jeu.m):
+            if jeu.coup_possible(col):
+                ligne = self.jouer_temp(jeu, col, jeu.joueur)
+                if jeu.victoire():
+                    self.annuler_coup(jeu, ligne, col)
+                    return col
+                self.annuler_coup(jeu, ligne, col)
+
+                ligne = self.jouer_temp(jeu, col, 3 - jeu.joueur)
+                if jeu.victoire():
+                    self.annuler_coup(jeu, ligne, col)
+                    return col
+                self.annuler_coup(jeu, ligne, col)
+
         meilleur_score = -float("inf")
+        meilleurs_coups = []
         alpha = -float("inf")
         beta = float("inf")
-        colonnes = sorted(range(jeu.m), key=lambda x: abs(x - jeu.m // 2))
 
-        for col in colonnes:
+        for col in range(jeu.m):
             if jeu.coup_possible(col):
                 ligne = self.jouer_temp(jeu, col, jeu.joueur)
                 score = self.minimax(jeu, self.profondeur - 1, False, alpha, beta)
@@ -24,48 +34,46 @@ class IANormale(IAFacile):
 
                 if score > meilleur_score:
                     meilleur_score = score
-                    meilleur_coup = col
+                    meilleurs_coups = [col]
+                elif score == meilleur_score:
+                    meilleurs_coups.append(col)
+
                 alpha = max(alpha, score)
-        return meilleur_coup
+
+        return random.choice(meilleurs_coups)
 
     def evaluer(self, jeu):
-        score = 0
-        weights = {2: 50, 3: 200, 4: 1000}
+        def score_sequence(seq, joueur):
+            score = 0
+            if seq.count(joueur) == 4:
+                score += 10000
+            elif seq.count(joueur) == 3 and seq.count(0) == 1:
+                score += 500
+            elif seq.count(joueur) == 2 and seq.count(0) == 2:
+                score += 50
+            if seq.count(3 - joueur) == 3 and seq.count(0) == 1:
+                score -= 700
+            return score
 
-        for dir in ['h', 'v', 'd1', 'd2']:
-            seq = self.detect_sequences(jeu, jeu.joueur, dir)
-            seq_adv = self.detect_sequences(jeu, 3 - jeu.joueur, dir)
+        score_total = 0
+        for r in range(jeu.n):
+            for c in range(jeu.m - 3):
+                score_total += score_sequence([jeu.grille[r][c + i] for i in range(4)], jeu.joueur)
+        for c in range(jeu.m):
+            for r in range(jeu.n - 3):
+                score_total += score_sequence([jeu.grille[r + i][c] for i in range(4)], jeu.joueur)
+        for r in range(jeu.n - 3):
+            for c in range(jeu.m - 3):
+                score_total += score_sequence([jeu.grille[r + i][c + i] for i in range(4)], jeu.joueur)
+        for r in range(3, jeu.n):
+            for c in range(jeu.m - 3):
+                score_total += score_sequence([jeu.grille[r - i][c + i] for i in range(4)], jeu.joueur)
 
-            for k, v in seq.items():
-                score += weights.get(k, 0) * v
-            for k, v in seq_adv.items():
-                score -= weights.get(k, 0) * v * 1.5
+        for i in range(jeu.n):
+            for j in range(jeu.m):
+                if jeu.grille[i][j] == jeu.joueur:
+                    score_total += self.grille_score[i][j]
+                elif jeu.grille[i][j] == 3 - jeu.joueur:
+                    score_total -= self.grille_score[i][j]
 
-        return score
-
-    def detect_sequences(self, jeu, player, direction):
-        sequences = defaultdict(int)
-        n, m = jeu.n, jeu.m
-
-        for i in range(n):
-            for j in range(m):
-                if jeu.grille[i][j] == player:
-                    count = 1
-                    ni, nj = i, j
-                    while True:
-                        if direction == 'h':
-                            nj += 1
-                        elif direction == 'v':
-                            ni += 1
-                        elif direction == 'd1':
-                            ni += 1; nj += 1
-                        else:
-                            ni += 1; nj -= 1
-
-                        if 0 <= ni < n and 0 <= nj < m and jeu.grille[ni][nj] == player:
-                            count += 1
-                        else:
-                            break
-                    if count >= 2:
-                        sequences[count] += 1
-        return sequences
+        return score_total

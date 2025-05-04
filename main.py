@@ -1,7 +1,38 @@
-from IA_difficile import IADifficile
 from IA_facile import IAFacile
 from IA_normale import IANormale
+from IA_difficile import IADifficile
 from Puissance4 import Puissance4
+
+
+def tester_match_equitable(IA1_class, IA2_class, nom1, nom2, nb_parties=50):
+    stats = {nom1: 0, nom2: 0, 'nuls': 0}
+
+    for partie in range(nb_parties):
+        jeu = Puissance4()
+
+        if partie % 2 == 0:
+            ia1, ia2 = IA1_class(), IA2_class()
+            nom_j1, nom_j2 = nom1, nom2
+        else:
+            ia1, ia2 = IA2_class(), IA1_class()
+            nom_j1, nom_j2 = nom2, nom1
+
+        jeu.joueur = 1
+        while True:
+            ia = ia1 if jeu.joueur == 1 else ia2
+            col = ia.choisir_coup(jeu)
+            jeu.jouer(col)
+
+            if jeu.victoire():
+                gagnant = nom_j1 if jeu.joueur == 1 else nom_j2
+                stats[gagnant] += 1
+                break
+            elif jeu.match_nul():
+                stats['nuls'] += 1
+                break
+
+            jeu.alterner_joueur()
+    return stats
 
 
 def main():
@@ -10,41 +41,53 @@ def main():
     print("#         PUISSANCE 4                 #")
     print("#######################################\n")
 
-    # Sélection du mode de jeu
     mode = input(
         "Choisissez le mode de jeu :\n"
         "1. Joueur vs Joueur\n"
         "2. Joueur vs IA Facile\n"
         "3. Joueur vs IA Normale\n"
         "4. Joueur vs IA Difficile\n"
-        "Votre choix (1-4) : "
+        "5. IA Facile vs IA Difficile\n"
+        "6. IA Facile vs IA Normale\n"
+        "7. IA Normale vs IA Difficile\n"
+        "Votre choix (1-7) : "
     )
-    while mode not in ["1", "2", "3", "4"]:
-        mode = input("Choix invalide. Réessayez (1-4) : ")
+    while mode not in [str(i) for i in range(1, 8)]:
+        mode = input("Choix invalide. Réessayez (1-7) : ")
 
-    # Initialisation de l'IA
+    if mode in ["5", "6", "7"]:
+        combinaisons = {
+            "5": (IAFacile, IADifficile, "IA Facile", "IA Difficile"),
+            "6": (IAFacile, IANormale, "IA Facile", "IA Normale"),
+            "7": (IANormale, IADifficile, "IA Normale", "IA Difficile")
+        }
+        IA1, IA2, nom1, nom2 = combinaisons[mode]
+        print(f"\n--- Tournoi {nom1} vs {nom2} ---")
+        stats = tester_match_equitable(IA1, IA2, nom1, nom2, nb_parties=50)
+        print(f"\nRésultats après 50 parties :")
+        print(f"{nom1} : {stats[nom1]} victoires")
+        print(f"{nom2} : {stats[nom2]} victoires")
+        print(f"Matchs nuls : {stats['nuls']}")
+        return
+
     ia = None
     if mode == "2":
         ia = IAFacile()
-        print("\n--- Mode IA Facile activée (Joueur 2) ---\n")
+        print("\n--- IA Facile activée ---\n")
     elif mode == "3":
         ia = IANormale()
-        print("\n--- Mode IA Normale activée (Joueur 2) ---\n")
+        print("\n--- IA Normale activée ---\n")
     elif mode == "4":
         ia = IADifficile()
-        print("\n--- Mode IA Difficile activée (Joueur 2) ---\n")
+        print("\n--- IA Difficile activée ---\n")
 
-    # Déroulement du jeu
     while True:
         jeu.afficher_grille()
 
-        # Tour de l'IA
         if ia and jeu.joueur == 2:
             print(f"Tour de l'IA ({ia.__class__.__name__})...")
             col = ia.choisir_coup(jeu)
             print(f"L'IA joue en colonne {col}\n")
-
-        # Tour du joueur humain
         else:
             try:
                 col = int(input(f"Joueur {jeu.joueur}, choisissez une colonne (0-{jeu.m - 1}) : "))
@@ -55,21 +98,22 @@ def main():
                 print("Veuillez entrer un nombre valide.\n")
                 continue
 
-        # Exécution du coup
         jeu.jouer(col)
 
-        # Vérification fin de partie
         if jeu.victoire():
             jeu.afficher_grille()
-            print(f"Le Joueur {jeu.joueur} remporte la partie !")
+            if ia and jeu.joueur == 2:
+                print("L'IA remporte la partie !")
+            else:
+                print(f"Le Joueur {jeu.joueur} remporte la partie !")
             break
         elif jeu.match_nul():
             jeu.afficher_grille()
             print("Match nul ! Aucun gagnant.")
             break
 
-        # Passage au joueur suivant
         jeu.alterner_joueur()
+
 
 if __name__ == "__main__":
     main()
