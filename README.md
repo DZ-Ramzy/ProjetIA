@@ -40,7 +40,15 @@ python main.py
 
 ## 🧩 Structure du projet
 
-<pre> ``` ├── main.py # Programme principal ├── Puissance4.py # Logique du jeu ├── IA_facile.py # IA basique ├── IA_normale.py # IA intermédiaire ├── IA_difficile.py # IA experte └── README.md # Documentation ``` </pre>
+```
+├── main.py           # Programme principal
+├── Puissance4.py     # Logique du jeu
+├── IA_facile.py      # IA basique
+├── IA_normale.py     # IA intermédiaire
+├── IA_difficile.py   # IA experte
+└── README.md         # Documentation
+```
+
 
 ## 🧠 Algorithmes implémentés
 + Minimax avec élagage alpha-beta
