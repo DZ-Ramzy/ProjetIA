@@ -4,16 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7fbc65b5-8b48-4b71-ab15-ca066aeb6c6d" name="Changes" comment="ajout des files du projetIA">
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/IA_difficile.py" beforeDir="false" afterPath="$PROJECT_DIR$/IA_difficile.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/IA_facile.py" beforeDir="false" afterPath="$PROJECT_DIR$/IA_facile.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/IA_normale.py" beforeDir="false" afterPath="$PROJECT_DIR$/IA_normale.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Puissance4.py" beforeDir="false" afterPath="$PROJECT_DIR$/Puissance4.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rapport_IA (3).pdf" beforeDir="false" afterPath="$PROJECT_DIR$/RAMZY_CHIBANI_MATHIEU_MOUSTACHE.pdf" afterDir="false" />
-    </list>
+    <list default="true" id="7fbc65b5-8b48-4b71-ab15-ca066aeb6c6d" name="Changes" comment="ajout des files du projetIA" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />

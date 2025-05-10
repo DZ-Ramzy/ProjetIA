@@ -1,5 +1,4 @@
 # Importation des modules nécessaires
-import random
 from IA_normale import IANormale
 
 class IADifficile(IANormale):
@@ -188,4 +187,3 @@ class IADifficile(IANormale):
                     score += 2
                 return score
         return -1
-
