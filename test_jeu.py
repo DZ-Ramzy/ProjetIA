@@ -9,6 +9,7 @@ Ce module contient des tests complets pour :
 - La génération et la validation des coups de l'IA
 """
 
+
 import unittest
 from Puissance4 import Puissance4
 from IA_facile import IAFacile

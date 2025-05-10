@@ -1,6 +1,5 @@
 # Importation des modules nécessaires
 import os
-
 class Puissance4:
     """
     Implémentation du jeu de Puissance 4.

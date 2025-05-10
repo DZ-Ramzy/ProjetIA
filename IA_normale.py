@@ -1,6 +1,7 @@
 from IA_facile import IAFacile
 import random
 
+
 class IANormale(IAFacile):
     """
     Implémentation d'une IA de niveau normal pour le jeu de Puissance 4.

@@ -1,4 +1,3 @@
-# Importation des classes d'IA et du jeu
 from IA_facile import IAFacile
 from IA_normale import IANormale
 from IA_difficile import IADifficile

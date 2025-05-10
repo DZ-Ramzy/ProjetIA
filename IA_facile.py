@@ -1,4 +1,3 @@
-# Importation du module random pour les choix aléatoires
 import random
 
 class IAFacile:

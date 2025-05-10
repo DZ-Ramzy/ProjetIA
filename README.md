@@ -1,5 +1,6 @@
 # 🎮 Puissance 4 avec IA - Projet d'Intelligence Artificielle
 
+
 [![Python](https://img.shields.io/badge/Python-3.8%2B-blue)](https://www.python.org/)
 [![Licence](https://img.shields.io/badge/Licence-MIT-green)](LICENSE)
 

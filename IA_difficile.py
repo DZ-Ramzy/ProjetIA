@@ -1,4 +1,3 @@
-# Importation des modules nécessaires
 from IA_normale import IANormale
 
 class IADifficile(IANormale):
