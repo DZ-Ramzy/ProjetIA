@@ -41,12 +41,13 @@ python main.py
 ## 🧩 Structure du projet
 
 ```
-├── main.py           # Programme principal
-├── Puissance4.py     # Logique du jeu
-├── IA_facile.py      # IA basique
-├── IA_normale.py     # IA intermédiaire
-├── IA_difficile.py   # IA experte
-└── README.md         # Documentation
+├── main.py                                 # Programme principal
+├── Puissance4.py                           # Logique du jeu
+├── IA_facile.py                            # IA basique
+├── IA_normale.py                           # IA intermédiaire
+├── IA_difficile.py                         # IA experte
+├── RAMZY_CHIBANI_MATHIEU_MOUSTACHE.pdf     # Documentation
+└── README.md                               # Documentation
 ```
 
 
